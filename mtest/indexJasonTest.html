@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        </head>
+<body>
+
+
+<p id="demo"></p>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+      
+    function length(obj) {
+    return Object.keys(myObj).length;
+}
+    function WordCount(str) { 
+  return str.split(" ").slice(13);
+}
+/*function replacer(key, value) {
+  if (typeof value !== 'string') {
+    return null;
+  }
+  return value;
+};*/
+   var count, i, j, x="";   
+  
+      for (i in myObj.content) {
+        //x += "<h2>" + "Object "+i + "</h2>";
+    
+      for (j in myObj.content[i].content) {
+         if(j=="bodyHtml"){
+          var myJSON = JSON.stringify(myObj.content[i].content.bodyHtml);
+      
+          count=WordCount(myJSON);
+            x += count+"<br>";
+          }else{
+            count=0;
+      }
+
+  }
+           document.getElementById("demo").innerHTML = x; 
+}
+ 
+  }
+
+
+};
+xmlhttp.open("GET", "test_feed.json", true);
+xmlhttp.send();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+$('#bottomalign').css('text-align','middle');

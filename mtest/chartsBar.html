@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    
+        </head>
+<body>
+
+
+<p id="demo"></p>
+     <canvas id="myChart" style="position: relative; height:85vh; width:100vw"></canvas>
+
+<script>
+        
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var tweet = JSON.parse(this.response);
+      
+    function length(obj) {
+    return Object.keys(tweet).length;
+}
+    function WordCount(str) { 
+  return str.split(" ").slice(13).length;
+}
+      
+            var i,
+            j,
+            labels = [],
+            counts = [];
+      
+      for (i in tweet.content) {
+        for (j in tweet.content[i].content) {
+         if (j != "bodyHtml") {
+                continue;
+              }
+            //labels.push(i);
+             labels.push(tweet.content[i].content.authorId);
+              var myJSON = JSON.stringify(tweet.content[i].content.bodyHtml);
+              counts.push(WordCount(myJSON));
+            }
+          }
+          BuildChart(labels, counts, "WORDS IN JSON HTML FIELDS");
+        }
+      };
+xmlhttp.open("GET", "test_feed.json", true);
+xmlhttp.send();
+
+var Chart;
+var backgroundColor = [];
+while (backgroundColor.length < 100) {
+   backgroundColor.push(`rgb(${rand(50, 250)}, ${rand(50, 250)}, ${rand(50, 250)})`);
+}
+
+function rand(frm, to) {
+    return ~~(Math.random() * (to - frm)) + frm;
+}
+    
+
+var ctx = document.getElementById('myChart');
+     
+    
+    function BuildChart(labels, values, chartTitle) {
+  var data = {
+    labels: labels,
+    datasets: [{
+      label: chartTitle, 
+      data: values,
+      backgroundColor: backgroundColor,
+    }],
+  };
+    
+
+
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: data,
+    options: {
+      responsive: true, 
+      maintainAspectRatio: false,
+        legend: {
+            display: true,
+            labels: {
+               fontSize: 14,  
+                boxWidth:0,
+                padding:15
+            }
+         },
+      scales: {
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+                fontSize: 14,
+         
+            labelString: 'Words Count'
+          }
+        }],
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+                fontSize: 14,
+            labelString: 'Author ID'
+          }
+        }]
+      },
+    }
+  });
+  return myChart;
+     
+}
+
+
+
+</script>
+
+
+</body>
+</html>
