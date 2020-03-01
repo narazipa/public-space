@@ -1,5 +1,4 @@
+# External demo links to this project:
+:+1:[JSON feed integration page created with gsap](http://lenasalbum.com/mtest/charts_gsap.html0)
 
-# Json feed demo page created with gsap:
-http://lenasalbum.com/mtest/charts_gsap.html
-# Json feed demo page created using Charts:
-http://lenasalbum.com/mtest/chartsJson.html
+:smirk:[JSON feed integration page created using Charts](http://lenasalbum.com/mtest/chartsJson.html)
