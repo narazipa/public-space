@@ -134,11 +134,8 @@ var myAnimation;
     function BuildChart(labels, counts){
        		for (n = 0; n <counts.length; n++) {
                 
-        var divElements = document.createElement("div");
-                
-        divElements.id = ("tweet"+n); 
-             
-    //Draggable.create("tweet"+a);
+        var divElements = document.createElement("div")
+	
         document.getElementById('myChart').appendChild(divElements);
                divElements.className = "circles";
 
@@ -149,13 +146,13 @@ var myAnimation;
     var xy = getRandomPosition(divElements);
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
-  document.getElementById("tweet"+n).innerHTML = (labels[n] +"<br>"+"word count "+counts[n]);
-   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim})  
+    myChart.childNodes[n].innerHTML = (labels[n] +"<br>"+"word count "+counts[n]);
+   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim, force3D:false})  
 
-    TweenMax.fromTo( document.getElementById("tweet"+n),0.3,{scale:1, opacity:0.65},{backgroundColor:backgroundColor[n], scale:initScale, ease:"power4.Out", force3D:false}); 
-           //circles.style.color=backgroundColor;
+    TweenMax.fromTo(myChart.childNodes[n],0.3,{scale:1, opacity:0.65},{backgroundColor:backgroundColor[n], scale:initScale, ease:"power4.Out", force3D:false}); 
+     
                   //x +=   divElements.className+"<br>";
-                  //document.getElementById("demo").innerHTML = x; 
+      
 
     }
         function dragAnim(event){
