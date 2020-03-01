@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.2/Draggable.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+<script src="Draggable.min.js"></script>
+    <style>
+	body {
+     vertical-align: baseline;
+	margin:20px;
+	padding:20px;
+    background-color:LightCyan ;
+        height:80vh; 
+        width:80vw;
+         /*font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";*/
+             font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+        font-weight:400;
+
+}
+     p {
+     font-size: 20px;
+}
+    .circles {
+        position:absolute;
+    border-radius: 100%;
+    width: 144px;
+    height:144px;
+/*    shape-outside: circle(50% at 30%);
+    clip-path: circle(50% at 0%);*/
+    font-size: 10px;
+    color:white;
+         font-weight:300;
+    line-height: 11px;
+   display: inline-flex;
+  align-items: center; 
+  justify-content: center;
+  text-align: center; 
+ box-shadow: 1px 1px 1px black;
+  /*          -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;*/
+
+
+    }
+    #myChart{
+position: relative;
+padding: 10px;
+    }
+        /* - */
+:focus,
+outline none,
+::-moz-focus-inner {
+  border: 0;
+}
+
+          </style>
+        </head>
+<body>
+
+
+<p id="demo">PRESS OR DRAG TO SCALE</p>
+<div id="myChart">
+   
+    </div>
+     
+
+<script>
+        
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var tweet = JSON.parse(this.response);
+      
+    function length(obj) {
+    return Object.keys(tweet).length;
+}
+    function WordCount(str) { 
+  return str.split(" ").slice(13).length;
+}
+      
+            var i,
+            j,
+            labels = [],
+            counts = [];
+  
+      
+      for (i in tweet.content) {
+        for (j in tweet.content[i].content) {
+         if (j != "bodyHtml") {
+                continue;
+              }
+            //labels.push(i);
+            labels.push(tweet.content[i].content.authorId);
+              var myJSON = JSON.stringify(tweet.content[i].content.bodyHtml);
+              counts.push(WordCount(myJSON));
+           
+            }
+          }
+          BuildChart(labels, counts);
+        }
+      };
+xmlhttp.open("GET", "test_feed.json", true);
+xmlhttp.send();
+
+var Chart;
+var backgroundColor = [];
+while (backgroundColor.length < 100) {
+   backgroundColor.push(`rgb(${rand(0, 255)}, ${rand(10, 255)}, ${rand(0, 255)})`);
+  
+}
+
+function rand(frm, to) {
+    return ~~(Math.random() * (to - frm)) + frm;
+}
+    
+    function getRandomPosition(element) {
+	var x = document.body.offsetHeight-element.clientHeight;
+	var y = document.body.offsetWidth-element.clientWidth;
+	var randomX = Math.floor(Math.random()*x);
+	var randomY = Math.floor(Math.random()*y);
+	return [randomX,randomY];
+}
+//var labels=["1","2","3","4","5","6"];
+//var counts=[3, 8, 14, 36, 13,23]; 
+  //BuildChart(labels, counts);
+var x="";
+    //var circles;
+//var ctx = document.getElementById('myChart');
+
+//gsap.registerPlugin(Draggable);
+var myAnimation;
+     var scaled;
+    function BuildChart(labels, counts){
+       		for (n = 0; n <counts.length; n++) {
+                
+        var divElements = document.createElement("div");
+                
+        divElements.id = ("tweet"+n); 
+             
+    //Draggable.create("tweet"+a);
+        document.getElementById('myChart').appendChild(divElements);
+               divElements.className = "circles";
+
+    //gsap.fromTo( document.getElementById("tweet"+a),{scale:1, opacity:0.70},{backgroundColor:backgroundColor[a], scale:counts[a]/12, ease:"power4.Out"},0.3)
+    var initScale =[];
+   initScale.push(counts[n]/15);
+    console.log(initScale)
+    var xy = getRandomPosition(divElements);
+	divElements.style.top = xy[0] + 'px';
+	divElements.style.left = xy[1] + 'px';
+   document.getElementById("tweet"+n).innerHTML = (labels[n] +"<br>"+counts[n]+" words");
+   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:dragEndAnim, onDragEnd:dragEndAnim})  
+
+    TweenMax.fromTo( document.getElementById("tweet"+n),0.3,{scale:1, opacity:0.65},{backgroundColor:backgroundColor[n], scale:initScale, ease:"power4.Out", force3D:false}); 
+           //circles.style.color=backgroundColor;
+                  //x +=   divElements.className+"<br>";
+                  //document.getElementById("demo").innerHTML = x; 
+
+    }
+        function dragAnim(event){
+
+          scaled=true;
+       myAnimation=TweenMax.to(event.target, 0.4, {scale:3, opacity:1, ease:Power3.easeInOut});
+     // }
+          
+        }
+        function dragEndAnim(event){
+         
+           myAnimation.reverse()
+       
+        }
+       
+    }
+  
+
+</script>
+
+
+</body>
+</html>
