@@ -150,7 +150,7 @@ var myAnimation;
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
    document.getElementById("tweet"+n).innerHTML = (labels[n] +"<br>"+counts[n]+" words");
-   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:dragEndAnim, onDragEnd:dragEndAnim})  
+   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim})  
 
     TweenMax.fromTo( document.getElementById("tweet"+n),0.3,{scale:1, opacity:0.65},{backgroundColor:backgroundColor[n], scale:initScale, ease:"power4.Out", force3D:false}); 
            //circles.style.color=backgroundColor;
@@ -162,8 +162,11 @@ var myAnimation;
 
           scaled=true;
        myAnimation=TweenMax.to(event.target, 0.4, {scale:3, opacity:1, ease:Power3.easeInOut});
-     // }
           
+        }
+	       function releaseAnim(){
+       TweenMax.delayedCall(0.3, dragEndAnim);
+
         }
         function dragEndAnim(event){
          
