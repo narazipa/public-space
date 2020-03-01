@@ -138,6 +138,8 @@ var myAnimation;
 	
         document.getElementById('myChart').appendChild(divElements);
                divElements.className = "circles";
+	divElements.id = ("tweet"+n);
+     var circle= document.getElementById("tweet"+n);
 
     //gsap.fromTo( document.getElementById("tweet"+a),{scale:1, opacity:0.70},{backgroundColor:backgroundColor[a], scale:counts[a]/12, ease:"power4.Out"},0.3)
     var initScale =[];
@@ -146,10 +148,11 @@ var myAnimation;
     var xy = getRandomPosition(divElements);
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
-    myChart.childNodes[n].innerHTML = (labels[n] +"<br>"+"word count "+counts[n]);
+   circle.innerHTML = (labels[n] +"<br>"+"word count "+counts[n]);
+  circle.style.backgroundColor=backgroundColor[n];
    Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim, force3D:false})  
 
-    TweenMax.fromTo(myChart.childNodes[n],0.3,{scale:1, opacity:0.65},{backgroundColor:backgroundColor[n], scale:initScale, ease:"power4.Out", force3D:false}); 
+    TweenMax.fromTo(circle,0.3,{scale:1, opacity:0.65},{scale:initScale, ease:"power4.Out", force3D:false}); 
      
                   //x +=   divElements.className+"<br>";
       
