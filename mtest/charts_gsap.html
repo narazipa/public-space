@@ -149,7 +149,7 @@ var myAnimation;
     var xy = getRandomPosition(divElements);
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
-   document.getElementById("tweet"+n).innerHTML = (labels[n] +"<br>"+counts[n]+" words");
+  document.getElementById("tweet"+n).innerHTML = (labels[n] +"<br>"+"word count "+counts[n]);
    Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim})  
 
     TweenMax.fromTo( document.getElementById("tweet"+n),0.3,{scale:1, opacity:0.65},{backgroundColor:backgroundColor[n], scale:initScale, ease:"power4.Out", force3D:false}); 
