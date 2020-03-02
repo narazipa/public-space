@@ -148,7 +148,7 @@ var myAnimation;
     var xy = getRandomPosition(divElements);
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
-   circle.innerHTML = (labels[n] +"<br>"+"word count "+counts[n]);
+   circle.innerHTML = (labels[n] +"<br>"+"word count: "+counts[n]);
   circle.style.backgroundColor=backgroundColor[n];
    Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim, force3D:false})  
 
