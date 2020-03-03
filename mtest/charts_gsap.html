@@ -71,10 +71,7 @@ var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var tweet = JSON.parse(this.response);
-      
-    function length(obj) {
-    return Object.keys(tweet).length;
-}
+
     function WordCount(str) { 
   return str.split(" ").slice(13).length;
 }
