@@ -88,7 +88,7 @@ xmlhttp.onreadystatechange = function() {
     }
         function Words(str) {
                  //var newstring=str.replace(/#/g, "");
-  return str.substring(str.indexOf("@"+1));
+  return str.substring(str.indexOf("@"+1)).slice(1,1);
 }
       
             var i,
