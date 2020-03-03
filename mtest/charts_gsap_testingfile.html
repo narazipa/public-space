@@ -166,7 +166,7 @@ var circle= divElements.id;
 
     //circle.style.backgroundColor=backgroundColor[n];
                 myChart.childNodes[n].style.backgroundColor=backgroundColor[n];
-   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onPress:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim,force3D:false})  
+   Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",  onDragStart:dragAnim,onRelease:releaseAnim, onDragEnd:dragEndAnim,force3D:false})  
 
     TweenMax.fromTo( myChart.childNodes[n],0.8,{ scale:0.8, opacity:0.65},{ scale:initScale, ease:Power3.easeOut, force3D:false}); 
                    
