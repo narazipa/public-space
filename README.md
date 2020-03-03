@@ -3,5 +3,5 @@
 
 :smirk:[JSON feed integration page created with Charts.js](http://lenasalbum.com/mtest/chartsJson.html)
 
-##Problems:
+# Issues:
 I am having trouble counting words on tweets that contain hash tag. Replacing it with "" didn't help.
