@@ -6,4 +6,4 @@
 :smirk:[JSON feed integration page created with Charts.js](http://lenasalbum.com/mtest/chartsJson.html)
 
 ## Issues:
-I have a problem with tweets that contain hash tag. The word count is wrong there. Replacing it with "" in a string didn't help. Still trying to find a solution. You can compare the actual tweet with the word count [here](http://lenasalbum.com/mtest/charts_gsap_testingfile.html)
+My word count method is not super accurate in cases where the string contains a hashtag link. I am still trying to find a solution. You can compare the actual tweet with it's word count [here](http://lenasalbum.com/mtest/charts_gsap_testingfile.html)
