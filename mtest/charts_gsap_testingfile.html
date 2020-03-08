@@ -17,8 +17,8 @@
 
     background-color:LightCyan ;
      
-         /*font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";*/
-             font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+         font-family:Helvetica, Arial, "sans-serif";
+       
         font-weight:400;
 
 }
@@ -27,6 +27,7 @@
       padding:20px;
      font-size: 20px;
 }
+
     .circles {
         position:absolute;
         
@@ -44,16 +45,15 @@
   justify-content: center;
   text-align: center; 
  box-shadow: 1px 1px 1px black;
-  /*          -webkit-transform: translate3d(0,0,0) !important;
-    transform: translate3d(0,0,0) !important;*/
-
+  
 
     }
     #myChart{
            height:60vh; 
         width:60vw;
 position: relative;
-padding:20px;
+margin:40px;
+
     }
         /* - */
 :focus,
@@ -67,28 +67,35 @@ outline none,
 <body>
 
 
- <div id="demo">PRESS OR DRAG TO SCALE</div>
+ <div id="demo">PRESS OR DRAG TO SCALE AND REVEAL THE TWEET</div>
 <div id="myChart"></div>
      
 
 <script>
+
         
-var xmlhttp = new XMLHttpRequest();
+let xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-   let tweet = JSON.parse(this.responseText);
+    let tweet = JSON.parse(this.responseText);
    /* function length(obj) {
     return Object.keys(tweet).length;
 }*/
     function WordCount(str) { 
-     let newstring=str.replace(/#/g, "");
+        //
+   let newstring= str.toLowerCase();
+   //if (str.indexOf("#") != -1) {
+     //let newstring=str.replace(/#/g, "");
+       //str.substr(str.indexOf("#"))
+    //}
+
   return newstring.split(" ").slice(13).length;
  
 
     }
         function Words(str) {
-                 //var newstring=str.replace(/#/g, "");
-  return str.substring(str.indexOf("@"+1)).slice(1,1);
+      
+  return str.substring(str.indexOf("@"+1)).slice(1,-1);
 }
       
             let i,
@@ -137,55 +144,58 @@ function rand(frm, to) {
 }
 ;
 let x="";
-    //var circles;
+    //let circles;
 let myChart = document.getElementById('myChart');
-let demo = document.getElementById('demo');
+    let demo = document.getElementById('demo');
 
 //gsap.registerPlugin(Draggable);
 let myAnimation;
-let scaled;
+     let scaled=false;
     function BuildChart(labels, counts,message){
        		for (n = 0; n <counts.length; n++) {
                 
-       let divElements = document.createElement("div");
+        let divElements = document.createElement("div");
                 
         divElements.id = (n); 
              
 let circle= divElements.id;
         myChart.appendChild(divElements);
                divElements.className = "circles";
-                //var circle= document.getElementById("tweet"+n);
+                //let circle= document.getElementById("tweet"+n);
 
- let initScale =[];
+    let initScale =[];
    initScale.push(counts[n]/15);
     //console.log(initScale)
- let xy = getRandomPosition(divElements);
+    let xy = getRandomPosition(divElements);
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
   myChart.childNodes[n].innerHTML = (labels[n] +"<br>"+"word count: "+counts[n]);
 
     //circle.style.backgroundColor=backgroundColor[n];
                 myChart.childNodes[n].style.backgroundColor=backgroundColor[n];
-    Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",onPress:dragAnim, onRelease:dragEndAnim, onDragEnd:dragEndAnim,force3D:false}); 
-
-    TweenMax.fromTo( myChart.childNodes[n],0.8,{ scale:0.8, opacity:0.65},{ scale:initScale, ease:Power3.easeOut, force3D:false}); 
+ 
+  Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"",onPress:dragAnim, onRelease:dragEndAnim, onDragEnd:dragEndAnim,force3D:false}); 
+   //Draggable.create(divElements, {type:"x,y", edgeResistance:0.65, bounds:"", onDragStart:dragAnim,  onDragEnd:dragEndAnim,force3D:false}); 
+                    TweenMax.fromTo(myChart.childNodes[n],0.8,{ scale:0.8, opacity:0.65},{ scale:initScale, ease:Power3.easeOut, force3D:false}); 
                    
-           //circles.style.color=backgroundColor;
-           
-                  //document.getElementById("demo").innerHTML = x;
-                 }
         function dragAnim(event){
             //console.log(even.target.id)
-             
-            x =  message[event.target.id]; 
+              scaled=true; 
+            x = message[event.target.id];
+            //demo.style.backgroundColor=backgroundColor[event.target.id];
        myAnimation=TweenMax.to(event.target, 0.4, {scale:3, opacity:1, ease:Power3.easeInOut});
        demo.innerHTML = x;
+          
         }
-               function dragEndAnim(event){
+  
+                
+                      
+        function dragEndAnim(event){
            //myAnimation.reverse();
            TweenMax.to(event.target, 0.5, {scale:counts[event.target.id]/15, opacity:0.65, ease:Power3.easeOut});
     }
     }
+
         
         
        
