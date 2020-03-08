@@ -15,7 +15,7 @@
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-    var tweet = JSON.parse(this.response);
+   let tweet = JSON.parse(this.response);
       
     function length(obj) {
     return Object.keys(tweet).length;
@@ -24,7 +24,7 @@ xmlhttp.onreadystatechange = function() {
   return str.split(" ").slice(13).length;
 }
       
-            var i,
+            let i,
             j,
             labels = [],
             counts = [];
@@ -36,7 +36,7 @@ xmlhttp.onreadystatechange = function() {
               }
             //labels.push(i);
              labels.push(tweet.content[i].content.authorId);
-              var myJSON = JSON.stringify(tweet.content[i].content.bodyHtml);
+             let myJSON = JSON.stringify(tweet.content[i].content.bodyHtml);
               counts.push(WordCount(myJSON));
             }
           }
@@ -47,7 +47,7 @@ xmlhttp.open("GET", "test_feed.json", true);
 xmlhttp.send();
 
 var Chart;
-var backgroundColor = [];
+let backgroundColor = [];
 while (backgroundColor.length < 100) {
    backgroundColor.push(`rgb(${rand(50, 250)}, ${rand(50, 250)}, ${rand(50, 250)})`);
 }
@@ -57,7 +57,7 @@ function rand(frm, to) {
 }
     
 
-var ctx = document.getElementById('myChart');
+let ctx = document.getElementById('myChart');
      
     
     function BuildChart(labels, values, chartTitle) {
