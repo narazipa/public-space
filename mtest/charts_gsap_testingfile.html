@@ -76,12 +76,12 @@ outline none,
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-    var tweet = JSON.parse(this.responseText);
+   let tweet = JSON.parse(this.responseText);
    /* function length(obj) {
     return Object.keys(tweet).length;
 }*/
     function WordCount(str) { 
-        var newstring=str.replace(/#/g, "");
+     let newstring=str.replace(/#/g, "");
   return newstring.split(" ").slice(13).length;
  
 
@@ -91,7 +91,7 @@ xmlhttp.onreadystatechange = function() {
   return str.substring(str.indexOf("@"+1)).slice(1,1);
 }
       
-            var i,
+            let i,
             j,
             
             labels = [],
@@ -106,7 +106,7 @@ xmlhttp.onreadystatechange = function() {
               }
             //labels.push(i);
             labels.push(tweet.content[i].content.authorId);
-              var myJSON = JSON.stringify(tweet.content[i].content.bodyHtml);
+              let myJSON = JSON.stringify(tweet.content[i].content.bodyHtml);
               counts.push(WordCount(myJSON));
              message.push(Words(myJSON));
             }
@@ -118,7 +118,7 @@ xmlhttp.open("GET", "test_feed.json", true);
 xmlhttp.send();
 
 
-var backgroundColor = [];
+let backgroundColor = [];
 while (backgroundColor.length < 100) {
    backgroundColor.push(`rgb(${rand(0, 255)}, ${rand(10, 255)}, ${rand(0, 255)})`);
   
@@ -129,37 +129,37 @@ function rand(frm, to) {
 }
     
     function getRandomPosition(element) {
-	var x = document.body.offsetHeight-element.clientHeight;
-	var y = document.body.offsetWidth-element.clientWidth;
-	var randomX = Math.floor(Math.random()*x);
-	var randomY = Math.floor(Math.random()*y);
+	let x = document.body.offsetHeight-element.clientHeight;
+	let y = document.body.offsetWidth-element.clientWidth;
+	let randomX = Math.floor(Math.random()*x);
+	let randomY = Math.floor(Math.random()*y);
 	return [randomX,randomY];
 }
 ;
-var x="";
+let x="";
     //var circles;
-var myChart = document.getElementById('myChart');
-    var demo = document.getElementById('demo');
+let myChart = document.getElementById('myChart');
+let demo = document.getElementById('demo');
 
 //gsap.registerPlugin(Draggable);
-var myAnimation;
-     var scaled;
+let myAnimation;
+let scaled;
     function BuildChart(labels, counts,message){
        		for (n = 0; n <counts.length; n++) {
                 
-        var divElements = document.createElement("div");
+       let divElements = document.createElement("div");
                 
         divElements.id = (n); 
              
-var circle= divElements.id;
+let circle= divElements.id;
         myChart.appendChild(divElements);
                divElements.className = "circles";
                 //var circle= document.getElementById("tweet"+n);
 
-    var initScale =[];
+ let initScale =[];
    initScale.push(counts[n]/15);
     //console.log(initScale)
-    var xy = getRandomPosition(divElements);
+ let xy = getRandomPosition(divElements);
 	divElements.style.top = xy[0] + 'px';
 	divElements.style.left = xy[1] + 'px';
   myChart.childNodes[n].innerHTML = (labels[n] +"<br>"+"word count: "+counts[n]);
